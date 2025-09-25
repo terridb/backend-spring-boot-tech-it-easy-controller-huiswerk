@@ -38,7 +38,7 @@ public class TelevisionController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteTelevision(@PathVariable int id) {
-        this.televisionDataBase.set(id, null);
+        this.televisionDataBase.remove(id);
 
         return ResponseEntity.noContent().build();
     }
