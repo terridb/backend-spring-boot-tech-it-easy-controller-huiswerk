@@ -66,6 +66,8 @@ public class TelevisionController {
             existingTelevision.setAmbiLight(television.getAmbiLight());
             existingTelevision.setOriginalStock(television.getOriginalStock());
             existingTelevision.setSold(television.getSold());
+            existingTelevision.setLastSold(television.getLastSold());
+            existingTelevision.setLastPurchased(television.getLastPurchased());
 
             this.repos.save(existingTelevision);
             return ResponseEntity.ok(existingTelevision);
@@ -151,6 +153,14 @@ public class TelevisionController {
 
             if (television.getSold() != null) {
                 existingTelevision.setSold(television.getSold());
+            }
+
+            if (television.getLastSold() != null) {
+                existingTelevision.setLastSold(television.getLastSold());
+            }
+
+            if (television.getLastPurchased() != null) {
+                existingTelevision.setLastPurchased(television.getLastPurchased());
             }
 
             this.repos.save(existingTelevision);

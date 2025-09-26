@@ -1,9 +1,8 @@
 package com.techiteasy.TechItEasy.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "televisions")
@@ -17,10 +16,19 @@ public class Television {
     private String brand;
     private String name;
     private Double price;
-    private Double availableSize;
-    private Integer refreshRate;
-    private String screenType;
-    private String screenQuality;
+
+    @Enumerated(EnumType.STRING)
+    private AvailableSize availableSize;
+
+    @Enumerated(EnumType.STRING)
+    private RefreshRate refreshRate;
+
+    @Enumerated(EnumType.STRING)
+    private ScreenType screenType;
+
+    @Enumerated(EnumType.STRING)
+    private ScreenQuality screenQuality;
+
     private Boolean smartTv;
     private Boolean wifi;
     private Boolean voiceControl;
@@ -29,18 +37,21 @@ public class Television {
     private Boolean ambiLight;
     private Integer originalStock;
     private Integer sold;
+    private LocalDate lastPurchased;
+    private LocalDate lastSold;
 
-    public Television() {}
+    public Television() {
+    }
 
-    public Television(Long id,
+    public Television(ScreenType screenType,
+                      Long id,
                       String type,
                       String brand,
                       String name,
                       Double price,
-                      Double availableSize,
-                      Integer refreshRate,
-                      String screenType,
-                      String screenQuality,
+                      AvailableSize availableSize,
+                      RefreshRate refreshRate,
+                      ScreenQuality screenQuality,
                       Boolean smartTv,
                       Boolean wifi,
                       Boolean voiceControl,
@@ -48,7 +59,11 @@ public class Television {
                       Boolean bluetooth,
                       Boolean ambiLight,
                       Integer originalStock,
-                      Integer sold) {
+                      Integer sold,
+                      LocalDate lastPurchased,
+                      LocalDate lastSold
+    ) {
+        this.screenType = screenType;
         this.id = id;
         this.type = type;
         this.brand = brand;
@@ -56,7 +71,6 @@ public class Television {
         this.price = price;
         this.availableSize = availableSize;
         this.refreshRate = refreshRate;
-        this.screenType = screenType;
         this.screenQuality = screenQuality;
         this.smartTv = smartTv;
         this.wifi = wifi;
@@ -66,6 +80,8 @@ public class Television {
         this.ambiLight = ambiLight;
         this.originalStock = originalStock;
         this.sold = sold;
+        this.lastPurchased = lastPurchased;
+        this.lastSold = lastSold;
     }
 
     public Long getId() {
@@ -108,35 +124,35 @@ public class Television {
         this.price = price;
     }
 
-    public Double getAvailableSize() {
+    public AvailableSize getAvailableSize() {
         return availableSize;
     }
 
-    public void setAvailableSize(Double availableSize) {
+    public void setAvailableSize(AvailableSize availableSize) {
         this.availableSize = availableSize;
     }
 
-    public Integer getRefreshRate() {
+    public RefreshRate getRefreshRate() {
         return refreshRate;
     }
 
-    public void setRefreshRate(Integer refreshRate) {
+    public void setRefreshRate(RefreshRate refreshRate) {
         this.refreshRate = refreshRate;
     }
 
-    public String getScreenType() {
+    public ScreenType getScreenType() {
         return screenType;
     }
 
-    public void setScreenType(String screenType) {
+    public void setScreenType(ScreenType screenType) {
         this.screenType = screenType;
     }
 
-    public String getScreenQuality() {
+    public ScreenQuality getScreenQuality() {
         return screenQuality;
     }
 
-    public void setScreenQuality(String screenQuality) {
+    public void setScreenQuality(ScreenQuality screenQuality) {
         this.screenQuality = screenQuality;
     }
 
@@ -202,5 +218,21 @@ public class Television {
 
     public void setSold(Integer sold) {
         this.sold = sold;
+    }
+
+    public LocalDate getLastSold() {
+        return lastSold;
+    }
+
+    public void setLastSold(LocalDate lastSold) {
+        this.lastSold = lastSold;
+    }
+
+    public LocalDate getLastPurchased() {
+        return lastPurchased;
+    }
+
+    public void setLastPurchased(LocalDate lastPurchased) {
+        this.lastPurchased = lastPurchased;
     }
 }
