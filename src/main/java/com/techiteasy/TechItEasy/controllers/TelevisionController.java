@@ -1,5 +1,6 @@
 package com.techiteasy.TechItEasy.controllers;
 
+import com.techiteasy.TechItEasy.exceptions.RecordNotFoundException;
 import com.techiteasy.TechItEasy.models.Television;
 import com.techiteasy.TechItEasy.repositories.TelevisionRepository;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +30,11 @@ public class TelevisionController {
     public ResponseEntity<Television> getTelevisionById(@PathVariable Long id) {
         Optional<Television> ot = this.repos.findById(id);
 
-        return ot.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        if (ot.isPresent()) {
+            return ResponseEntity.ok(ot.get());
+        } else {
+            throw new RecordNotFoundException("Television with id " + id + " not found");
+        }
     }
 
     @PostMapping
@@ -65,7 +70,7 @@ public class TelevisionController {
             this.repos.save(existingTelevision);
             return ResponseEntity.ok(existingTelevision);
         } else {
-            return ResponseEntity.notFound().build();
+            throw new RecordNotFoundException("Television with id " + id + " not found");
         }
     }
 
@@ -77,7 +82,7 @@ public class TelevisionController {
             this.repos.deleteById(id);
             return ResponseEntity.noContent().build();
         } else {
-            return ResponseEntity.notFound().build();
+            throw new RecordNotFoundException("Television with id " + id + " not found");
         }
     }
 
@@ -151,7 +156,7 @@ public class TelevisionController {
             this.repos.save(existingTelevision);
             return ResponseEntity.ok(existingTelevision);
         } else {
-            return ResponseEntity.notFound().build();
+            throw new RecordNotFoundException("Television with id " + id + " not found");
         }
     }
 }
