@@ -80,4 +80,78 @@ public class TelevisionController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<Television> patchTelevision(@PathVariable Long id, @RequestBody Television television) {
+        Optional<Television> ot = this.repos.findById(id);
+
+        if (ot.isPresent()) {
+            Television existingTelevision = ot.get();
+
+            if (television.getType() != null) {
+                existingTelevision.setType(television.getType());
+            }
+
+            if (television.getBrand() != null) {
+                existingTelevision.setBrand(television.getBrand());
+            }
+
+            if (television.getName() != null) {
+                existingTelevision.setName(television.getName());
+            }
+
+            if (television.getPrice() != null) {
+                existingTelevision.setPrice(television.getPrice());
+            }
+
+            if (television.getAvailableSize() != null) {
+                existingTelevision.setAvailableSize(television.getAvailableSize());
+            }
+
+            if (television.getRefreshRate() != null) {
+                existingTelevision.setRefreshRate(television.getRefreshRate());
+            }
+
+            if (television.getScreenType() != null) {
+                existingTelevision.setScreenType(television.getScreenType());
+            }
+
+            if (television.getSmartTv() != null) {
+                existingTelevision.setSmartTv(television.getSmartTv());
+            }
+
+            if (television.getWifi() != null) {
+                existingTelevision.setWifi(television.getWifi());
+            }
+
+            if (television.getVoiceControl() != null) {
+                existingTelevision.setVoiceControl(television.getVoiceControl());
+            }
+
+            if (television.getHdr() != null) {
+                existingTelevision.setHdr(television.getHdr());
+            }
+
+            if (television.getBluetooth() != null) {
+                existingTelevision.setBluetooth(television.getBluetooth());
+            }
+
+            if (television.getAmbiLight() != null) {
+                existingTelevision.setAmbiLight(television.getAmbiLight());
+            }
+
+            if (television.getOriginalStock() != null) {
+                existingTelevision.setOriginalStock(television.getOriginalStock());
+            }
+
+            if (television.getSold() != null) {
+                existingTelevision.setSold(television.getSold());
+            }
+
+            this.repos.save(existingTelevision);
+            return ResponseEntity.ok(existingTelevision);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }
