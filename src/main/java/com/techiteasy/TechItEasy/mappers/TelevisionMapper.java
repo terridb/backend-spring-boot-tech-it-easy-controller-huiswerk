@@ -6,26 +6,28 @@ import com.techiteasy.TechItEasy.models.Television;
 
 public class TelevisionMapper {
 
-    public static Television toEntity(TelevisionInputDto televisionInputDto) {
-        Television television = new Television();
+    public static Television toEntity(TelevisionInputDto televisionInputDto, Television existingTelevision) {
+        if (existingTelevision == null) {
+            existingTelevision = new Television();
+        }
 
-        television.setType(televisionInputDto.type);
-        television.setBrand(televisionInputDto.brand);
-        television.setName(televisionInputDto.name);
-        television.setPrice(televisionInputDto.price);
-        television.setAvailableSize(televisionInputDto.availableSize);
-        television.setRefreshRate(televisionInputDto.refreshRate);
-        television.setScreenType(televisionInputDto.screenType);
-        television.setScreenQuality(televisionInputDto.screenQuality);
-        television.setSmartTv(televisionInputDto.smartTv);
-        television.setWifi(televisionInputDto.wifi);
-        television.setVoiceControl(televisionInputDto.voiceControl);
-        television.setHdr(televisionInputDto.hdr);
-        television.setBluetooth(televisionInputDto.bluetooth);
-        television.setAmbiLight(televisionInputDto.ambiLight);
-        television.setOriginalStock(televisionInputDto.originalStock);
+        existingTelevision.setType(televisionInputDto.type);
+        existingTelevision.setBrand(televisionInputDto.brand);
+        existingTelevision.setName(televisionInputDto.name);
+        existingTelevision.setPrice(televisionInputDto.price);
+        existingTelevision.setAvailableSize(televisionInputDto.availableSize);
+        existingTelevision.setRefreshRate(televisionInputDto.refreshRate);
+        existingTelevision.setScreenType(televisionInputDto.screenType);
+        existingTelevision.setScreenQuality(televisionInputDto.screenQuality);
+        existingTelevision.setSmartTv(televisionInputDto.smartTv);
+        existingTelevision.setWifi(televisionInputDto.wifi);
+        existingTelevision.setVoiceControl(televisionInputDto.voiceControl);
+        existingTelevision.setHdr(televisionInputDto.hdr);
+        existingTelevision.setBluetooth(televisionInputDto.bluetooth);
+        existingTelevision.setAmbiLight(televisionInputDto.ambiLight);
+        existingTelevision.setOriginalStock(televisionInputDto.originalStock);
 
-        return television;
+        return existingTelevision;
     }
 
     public static TelevisionDto toDto(Television television) {

@@ -50,19 +50,14 @@ public class TelevisionController {
 
         return ResponseEntity.ok(televisionDto);
     }
-//
-//    @DeleteMapping("/{id}")
-//    public ResponseEntity<Television> deleteTelevision(@PathVariable Long id) {
-//        Optional<Television> ot = this.repos.findById(id);
-//
-//        if (ot.isPresent()) {
-//            this.repos.deleteById(id);
-//            return ResponseEntity.noContent().build();
-//        } else {
-//            throw new RecordNotFoundException("Television with id " + id + " not found");
-//        }
-//    }
-//
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteTelevision(@PathVariable Long id) {
+        this.service.deleteTelevision(id);
+
+        return ResponseEntity.noContent().build();
+    }
+
 //    @PatchMapping("/{id}")
 //    public ResponseEntity<Television> patchTelevision(@PathVariable Long id, @RequestBody Television television) {
 //        Optional<Television> ot = this.repos.findById(id);

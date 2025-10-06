@@ -39,7 +39,7 @@ public class TelevisionService {
     }
 
     public TelevisionDto createTelevision(TelevisionInputDto televisionInputDto) {
-        Television television = TelevisionMapper.toEntity(televisionInputDto);
+        Television television = TelevisionMapper.toEntity(televisionInputDto, null);
 
         Television savedTelevision = televisionRepository.save(television);
 
@@ -50,24 +50,16 @@ public class TelevisionService {
         Television existingTelevision = televisionRepository.findById(id)
                 .orElseThrow(() -> new RecordNotFoundException("Television with id " + id + " not found"));
 
-        existingTelevision.setType(televisionInputDto.type);
-        existingTelevision.setBrand(televisionInputDto.brand);
-        existingTelevision.setName(televisionInputDto.name);
-        existingTelevision.setPrice(televisionInputDto.price);
-        existingTelevision.setAvailableSize(televisionInputDto.availableSize);
-        existingTelevision.setRefreshRate(televisionInputDto.refreshRate);
-        existingTelevision.setScreenType(televisionInputDto.screenType);
-        existingTelevision.setScreenQuality(televisionInputDto.screenQuality);
-        existingTelevision.setSmartTv(televisionInputDto.smartTv);
-        existingTelevision.setWifi(televisionInputDto.wifi);
-        existingTelevision.setVoiceControl(televisionInputDto.voiceControl);
-        existingTelevision.setHdr(televisionInputDto.hdr);
-        existingTelevision.setBluetooth(televisionInputDto.bluetooth);
-        existingTelevision.setAmbiLight(televisionInputDto.ambiLight);
-        existingTelevision.setOriginalStock(televisionInputDto.originalStock);
-
-        Television savedTelevision = televisionRepository.save(existingTelevision);
+       Television updatedTelevision = TelevisionMapper.toEntity(televisionInputDto, existingTelevision);
+        Television savedTelevision = televisionRepository.save(updatedTelevision);
         return TelevisionMapper.toDto(savedTelevision);
+    }
+
+    public void deleteTelevision(Long id) {
+        televisionRepository.findById(id)
+                .orElseThrow(() -> new RecordNotFoundException("Television with id " + id + " not found"));
+
+        televisionRepository.deleteById(id);
     }
 
 }
