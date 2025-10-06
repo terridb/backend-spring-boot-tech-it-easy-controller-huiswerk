@@ -3,6 +3,7 @@ package com.techiteasy.TechItEasy.services;
 import com.techiteasy.TechItEasy.dtos.TelevisionDto;
 import com.techiteasy.TechItEasy.dtos.TelevisionInputDto;
 import com.techiteasy.TechItEasy.dtos.TelevisionPatchDto;
+import com.techiteasy.TechItEasy.dtos.TelevisionSalesDto;
 import com.techiteasy.TechItEasy.exceptions.RecordNotFoundException;
 import com.techiteasy.TechItEasy.mappers.TelevisionMapper;
 import com.techiteasy.TechItEasy.models.Television;
@@ -19,6 +20,17 @@ public class TelevisionService {
 
     public TelevisionService(TelevisionRepository televisionRepository) {
         this.televisionRepository = televisionRepository;
+    }
+
+    public List<TelevisionSalesDto> getSalesAllTelevisions() {
+        List<Television> televisions = televisionRepository.findAll();
+        List<TelevisionSalesDto> dtoTelevisions = new ArrayList<>();
+
+        for (Television television : televisions) {
+            dtoTelevisions.add(TelevisionMapper.toSalesDto(television));
+        }
+
+        return dtoTelevisions;
     }
 
     public List<TelevisionDto> getAllTelevisions() {
@@ -92,6 +104,10 @@ public class TelevisionService {
 
         if (televisionPatchDto.screenType != null) {
             existingTelevision.setScreenType(televisionPatchDto.screenType);
+        }
+
+        if (televisionPatchDto.screenQuality != null) {
+            existingTelevision.setScreenQuality(televisionPatchDto.screenQuality);
         }
 
         if (televisionPatchDto.smartTv != null) {

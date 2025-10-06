@@ -2,6 +2,7 @@ package com.techiteasy.TechItEasy.mappers;
 
 import com.techiteasy.TechItEasy.dtos.TelevisionDto;
 import com.techiteasy.TechItEasy.dtos.TelevisionInputDto;
+import com.techiteasy.TechItEasy.dtos.TelevisionSalesDto;
 import com.techiteasy.TechItEasy.models.Television;
 
 public class TelevisionMapper {
@@ -48,6 +49,15 @@ public class TelevisionMapper {
         televisionDto.hdr = television.getHdr();
         televisionDto.bluetooth = television.getBluetooth();
         televisionDto.ambiLight = television.getAmbiLight();
+
+        return televisionDto;
+    }
+
+    public static TelevisionSalesDto toSalesDto(Television television) {
+        TelevisionSalesDto televisionDto = new TelevisionSalesDto();
+
+        televisionDto.id = television.getId();
+        televisionDto.price = television.getPrice();
         televisionDto.originalStock = television.getOriginalStock();
         televisionDto.sold = television.getSold();
 

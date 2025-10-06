@@ -21,6 +21,4 @@ public class TelevisionDto {
     public Boolean hdr;
     public Boolean bluetooth;
     public Boolean ambiLight;
-    public Integer originalStock;
-    public Integer sold;
 }

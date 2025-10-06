@@ -3,6 +3,7 @@ package com.techiteasy.TechItEasy.controllers;
 import com.techiteasy.TechItEasy.dtos.TelevisionDto;
 import com.techiteasy.TechItEasy.dtos.TelevisionInputDto;
 import com.techiteasy.TechItEasy.dtos.TelevisionPatchDto;
+import com.techiteasy.TechItEasy.dtos.TelevisionSalesDto;
 import com.techiteasy.TechItEasy.services.TelevisionService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -31,6 +32,12 @@ public class TelevisionController {
     public ResponseEntity<TelevisionDto> getTelevisionById(@PathVariable Long id) {
 
         return ResponseEntity.ok(service.getTelevisionById(id));
+    }
+
+    @GetMapping("/sales")
+    public ResponseEntity<List<TelevisionSalesDto>> getSalesAllTelevisions() {
+
+        return ResponseEntity.ok(this.service.getSalesAllTelevisions());
     }
 
     @PostMapping
