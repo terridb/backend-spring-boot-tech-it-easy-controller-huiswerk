@@ -13,7 +13,7 @@ public class TelevisionInputDto {
     public String type;
 
     @NotBlank
-    @Size(min=3, max=128)
+    @Size(min=2, max=128)
     public String brand;
 
     @NotBlank

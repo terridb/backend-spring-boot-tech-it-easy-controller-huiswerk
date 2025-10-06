@@ -36,7 +36,7 @@ public class Television {
     private Boolean bluetooth;
     private Boolean ambiLight;
     private Integer originalStock;
-    private Integer sold;
+    private Integer sold = 0;
     private LocalDate lastPurchased;
     private LocalDate lastSold;
 
