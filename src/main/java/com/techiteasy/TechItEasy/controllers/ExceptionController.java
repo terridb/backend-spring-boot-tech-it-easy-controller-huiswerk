@@ -1,5 +1,6 @@
 package com.techiteasy.TechItEasy.controllers;
 
+import com.techiteasy.TechItEasy.exceptions.InvalidInputException;
 import com.techiteasy.TechItEasy.exceptions.RecordNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,6 +9,11 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
 public class ExceptionController {
+
+    @ExceptionHandler(value = InvalidInputException.class)
+    public ResponseEntity<Object> exception(InvalidInputException exception) {
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+    }
 
     @ExceptionHandler(value = RecordNotFoundException.class)
     public ResponseEntity<Object> exception(RecordNotFoundException exception) {
