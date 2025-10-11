@@ -22,7 +22,7 @@ public class TelevisionInputDto {
 
     @NotNull
     @Positive
-    @Digits(integer = 5, fraction = 2)
+    @Digits(integer = 10, fraction = 2)
     public Double price;
 
     @NotNull

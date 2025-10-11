@@ -40,50 +40,6 @@ public class Television {
     private LocalDate lastPurchased;
     private LocalDate lastSold;
 
-    public Television() {
-    }
-
-    public Television(ScreenType screenType,
-                      Long id,
-                      String type,
-                      String brand,
-                      String name,
-                      Double price,
-                      AvailableSize availableSize,
-                      RefreshRate refreshRate,
-                      ScreenQuality screenQuality,
-                      Boolean smartTv,
-                      Boolean wifi,
-                      Boolean voiceControl,
-                      Boolean hdr,
-                      Boolean bluetooth,
-                      Boolean ambiLight,
-                      Integer originalStock,
-                      Integer sold,
-                      LocalDate lastPurchased,
-                      LocalDate lastSold
-    ) {
-        this.screenType = screenType;
-        this.id = id;
-        this.type = type;
-        this.brand = brand;
-        this.name = name;
-        this.price = price;
-        this.availableSize = availableSize;
-        this.refreshRate = refreshRate;
-        this.screenQuality = screenQuality;
-        this.smartTv = smartTv;
-        this.wifi = wifi;
-        this.voiceControl = voiceControl;
-        this.hdr = hdr;
-        this.bluetooth = bluetooth;
-        this.ambiLight = ambiLight;
-        this.originalStock = originalStock;
-        this.sold = sold;
-        this.lastPurchased = lastPurchased;
-        this.lastSold = lastSold;
-    }
-
     public Long getId() {
         return id;
     }

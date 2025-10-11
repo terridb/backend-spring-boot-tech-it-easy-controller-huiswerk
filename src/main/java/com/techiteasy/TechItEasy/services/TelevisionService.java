@@ -4,6 +4,7 @@ import com.techiteasy.TechItEasy.dtos.TelevisionDto;
 import com.techiteasy.TechItEasy.dtos.TelevisionInputDto;
 import com.techiteasy.TechItEasy.dtos.TelevisionPatchDto;
 import com.techiteasy.TechItEasy.dtos.TelevisionSalesDto;
+import com.techiteasy.TechItEasy.exceptions.InvalidInputException;
 import com.techiteasy.TechItEasy.exceptions.RecordNotFoundException;
 import com.techiteasy.TechItEasy.mappers.TelevisionMapper;
 import com.techiteasy.TechItEasy.models.Television;
@@ -79,18 +80,38 @@ public class TelevisionService {
                 .orElseThrow(() -> new RecordNotFoundException("Television with id " + id + " not found"));
 
         if (televisionPatchDto.type != null) {
+            if (televisionPatchDto.type.length() < 3 || televisionPatchDto.type.length() > 128) {
+                throw new InvalidInputException("Type must be between 3 and 128 characters");
+            }
             existingTelevision.setType(televisionPatchDto.type);
         }
 
         if (televisionPatchDto.brand != null) {
+            if (televisionPatchDto.brand.length() < 3 || televisionPatchDto.brand.length() > 128) {
+                throw new InvalidInputException("Brand must be between 3 and 128 characters");
+            }
             existingTelevision.setBrand(televisionPatchDto.brand);
         }
 
         if (televisionPatchDto.name != null) {
+            if (televisionPatchDto.name.length() < 3 || televisionPatchDto.name.length() > 128) {
+                throw new InvalidInputException("Name must be between 3 and 128 characters");
+            }
             existingTelevision.setName(televisionPatchDto.name);
         }
 
         if (televisionPatchDto.price != null) {
+            if (televisionPatchDto.price < 0) {
+                throw new InvalidInputException("Price must be a positive value");
+            }
+
+            String priceString = String.valueOf(televisionPatchDto.price);
+            String[] parts = priceString.split("\\.");
+
+            if (parts.length > 1 && parts[1].length() > 2) {
+                throw new InvalidInputException("Price can not have more then 2 digits after the decimal");
+            }
+
             existingTelevision.setPrice(televisionPatchDto.price);
         }
 
@@ -135,6 +156,9 @@ public class TelevisionService {
         }
 
         if (televisionPatchDto.originalStock != null) {
+            if (televisionPatchDto.originalStock < 0) {
+                throw new InvalidInputException("Stock must be greater than or equal to 0");
+            }
             existingTelevision.setOriginalStock(televisionPatchDto.originalStock);
         }
 
