@@ -1,9 +1,6 @@
 package com.techiteasy.TechItEasy.controllers;
 
-import com.techiteasy.TechItEasy.dtos.TelevisionDto;
-import com.techiteasy.TechItEasy.dtos.TelevisionInputDto;
-import com.techiteasy.TechItEasy.dtos.TelevisionPatchDto;
-import com.techiteasy.TechItEasy.dtos.TelevisionSalesDto;
+import com.techiteasy.TechItEasy.dtos.*;
 import com.techiteasy.TechItEasy.services.TelevisionService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -20,6 +17,13 @@ public class TelevisionController {
 
     public TelevisionController(TelevisionService service) {
         this.service = service;
+    }
+
+    @PutMapping("/{id}/remotecontroller")
+    public ResponseEntity<TelevisionDto> assignRemoteControllerToTelevision(@PathVariable Long id, @RequestBody IdInputDto input) {
+
+        TelevisionDto televisionDto = service.assignRemoteControllerToTelevision(id, input.id);
+        return ResponseEntity.ok(televisionDto);
     }
 
     @GetMapping

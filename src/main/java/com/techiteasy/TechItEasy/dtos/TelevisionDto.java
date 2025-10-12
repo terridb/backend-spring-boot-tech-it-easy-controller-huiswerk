@@ -21,4 +21,5 @@ public class TelevisionDto {
     public Boolean hdr;
     public Boolean bluetooth;
     public Boolean ambiLight;
+    public RemoteControllerDto remoteController;
 }

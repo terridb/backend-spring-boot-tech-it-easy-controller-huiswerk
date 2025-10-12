@@ -3,6 +3,7 @@ package com.techiteasy.TechItEasy.models;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "televisions")
@@ -39,6 +40,22 @@ public class Television {
     private Integer sold = 0;
     private LocalDate lastPurchased;
     private LocalDate lastSold;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "remote_controller_id")
+    RemoteController remoteController;
+
+//    @ManyToOne
+//    @JoinColumn(name = "ci_module_id")
+//    CIModule ciModule;
+//
+//    @ManyToMany
+//    @JoinTable(
+//            name = "television_wallbrackets",
+//            joinColumns = @JoinColumn(name = "wall_bracket_id"),
+//            inverseJoinColumns = @JoinColumn(name = "television_id")
+//    )
+//    List<WallBracket> wallBrackets;
 
     public Long getId() {
         return id;
@@ -191,4 +208,28 @@ public class Television {
     public void setLastPurchased(LocalDate lastPurchased) {
         this.lastPurchased = lastPurchased;
     }
+
+    public RemoteController getRemoteController() {
+        return remoteController;
+    }
+
+    public void setRemoteController(RemoteController remoteController) {
+        this.remoteController = remoteController;
+    }
+
+//    public CIModule getCiModule() {
+//        return ciModule;
+//    }
+//
+//    public void setCiModule(CIModule ciModule) {
+//        this.ciModule = ciModule;
+//    }
+//
+//    public List<WallBracket> getWallBrackets() {
+//        return wallBrackets;
+//    }
+//
+//    public void setWallBrackets(List<WallBracket> wallBrackets) {
+//        this.wallBrackets = wallBrackets;
+//    }
 }

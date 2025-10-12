@@ -25,6 +25,7 @@ public class RemoteControllerMapper {
         RemoteControllerDto remoteControllerDto = new RemoteControllerDto();
 
         remoteControllerDto.id = remoteController.getId();
+        remoteControllerDto.compatibleWith = remoteController.getCompatibleWith();
         remoteControllerDto.batteryType = remoteController.getBatteryType();
         remoteControllerDto.name = remoteController.getName();
         remoteControllerDto.brand = remoteController.getBrand();

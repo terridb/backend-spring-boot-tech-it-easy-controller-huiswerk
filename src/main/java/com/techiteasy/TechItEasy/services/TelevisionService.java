@@ -7,20 +7,41 @@ import com.techiteasy.TechItEasy.dtos.TelevisionSalesDto;
 import com.techiteasy.TechItEasy.exceptions.InvalidInputException;
 import com.techiteasy.TechItEasy.exceptions.RecordNotFoundException;
 import com.techiteasy.TechItEasy.mappers.TelevisionMapper;
+import com.techiteasy.TechItEasy.models.RemoteController;
 import com.techiteasy.TechItEasy.models.Television;
+import com.techiteasy.TechItEasy.repositories.RemoteControllerRepository;
 import com.techiteasy.TechItEasy.repositories.TelevisionRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TelevisionService {
 
     private final TelevisionRepository televisionRepository;
 
-    public TelevisionService(TelevisionRepository televisionRepository) {
+    private final RemoteControllerRepository remoteControllerRepository;
+
+    public TelevisionService(TelevisionRepository televisionRepository,
+                             RemoteControllerRepository remoteControllerRepository) {
         this.televisionRepository = televisionRepository;
+        this.remoteControllerRepository = remoteControllerRepository;
+    }
+
+    public TelevisionDto assignRemoteControllerToTelevision(Long televisionId, Long remoteControllerId) {
+        Television television = televisionRepository.findById(televisionId)
+                .orElseThrow(() -> new RecordNotFoundException("Television with id " + televisionId + " not found"));
+        RemoteController remoteController = remoteControllerRepository.findById(remoteControllerId)
+                .orElseThrow(() -> new RecordNotFoundException("Remote controller with id " + remoteControllerId + " not found"));
+
+        television.setRemoteController(remoteController);
+        remoteController.setTelevision(television);
+
+        Television savedTelevision = televisionRepository.save(television);
+
+        return TelevisionMapper.toDto(savedTelevision);
     }
 
     public List<TelevisionSalesDto> getSalesAllTelevisions() {

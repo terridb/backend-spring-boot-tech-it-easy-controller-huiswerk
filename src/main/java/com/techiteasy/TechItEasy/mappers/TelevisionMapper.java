@@ -50,6 +50,10 @@ public class TelevisionMapper {
         televisionDto.bluetooth = television.getBluetooth();
         televisionDto.ambiLight = television.getAmbiLight();
 
+        if (television.getRemoteController() != null) {
+            televisionDto.remoteController = RemoteControllerMapper.toDto(television.getRemoteController());
+        }
+
         return televisionDto;
     }
 
