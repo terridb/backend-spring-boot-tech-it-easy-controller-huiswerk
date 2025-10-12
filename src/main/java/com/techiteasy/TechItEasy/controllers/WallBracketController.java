@@ -1,12 +1,12 @@
 package com.techiteasy.TechItEasy.controllers;
 
 import com.techiteasy.TechItEasy.dtos.WallBracketDto;
+import com.techiteasy.TechItEasy.dtos.WallBracketInputDto;
 import com.techiteasy.TechItEasy.services.WallBracketService;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,5 +29,26 @@ public class WallBracketController {
     @GetMapping("/{id}")
     public ResponseEntity<WallBracketDto> getWallBracketById(@PathVariable Long id) {
         return ResponseEntity.ok(service.getWallBracketById(id));
+    }
+
+    @PostMapping
+    public ResponseEntity<WallBracketDto> createWallBracket(@Valid @RequestBody WallBracketInputDto wallBracketInputDto) {
+        WallBracketDto wallBracketDto = this.service.createWallBracket(wallBracketInputDto);
+
+        return new ResponseEntity<>(wallBracketDto, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<WallBracketDto> updateWallBracket(@PathVariable Long id, @Valid @RequestBody WallBracketInputDto wallBracketInputDto) {
+        WallBracketDto wallBracketDto = this.service.updateWallBracket(id, wallBracketInputDto);
+
+        return ResponseEntity.ok(wallBracketDto);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteWallBracket(@PathVariable Long id) {
+        this.service.deleteWallBracket(id);
+
+        return ResponseEntity.noContent().build();
     }
 }
