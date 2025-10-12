@@ -1,4 +1,4 @@
-package com.techiteasy.TechItEasy.dtos;
+package com.techiteasy.TechItEasy.dtos.wallbrackets;
 
 import jakarta.validation.constraints.*;
 

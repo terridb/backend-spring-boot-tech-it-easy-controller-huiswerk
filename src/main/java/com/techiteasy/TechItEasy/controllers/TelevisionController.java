@@ -1,6 +1,10 @@
 package com.techiteasy.TechItEasy.controllers;
 
 import com.techiteasy.TechItEasy.dtos.*;
+import com.techiteasy.TechItEasy.dtos.televisions.TelevisionDto;
+import com.techiteasy.TechItEasy.dtos.televisions.TelevisionInputDto;
+import com.techiteasy.TechItEasy.dtos.televisions.TelevisionPatchDto;
+import com.techiteasy.TechItEasy.dtos.televisions.TelevisionSalesDto;
 import com.techiteasy.TechItEasy.services.TelevisionService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -23,6 +27,13 @@ public class TelevisionController {
     public ResponseEntity<TelevisionDto> assignRemoteControllerToTelevision(@PathVariable Long id, @RequestBody IdInputDto input) {
 
         TelevisionDto televisionDto = service.assignRemoteControllerToTelevision(id, input.id);
+        return ResponseEntity.ok(televisionDto);
+    }
+
+    @PutMapping("/{id}/cimodule")
+    public ResponseEntity<TelevisionDto> assignCIModuleToTelevision(@PathVariable Long id, @RequestBody IdInputDto input) {
+
+        TelevisionDto televisionDto = service.assignCIModuleToTelevision(id, input.id);
         return ResponseEntity.ok(televisionDto);
     }
 

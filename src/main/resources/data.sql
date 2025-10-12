@@ -43,3 +43,13 @@ VALUES
      'SIZE_43', 'HZ_60', 'LED', 'FULL_HD',
      true, true, false, true, true, true,
      25, 8, '2025-07-01', '2025-09-25');
+
+-- Cimodules
+INSERT INTO ci_modules (name, type, price)
+VALUES
+    ('Samsung CI+ 1.4 Module', 'CI+', 39.99),
+    ('LG CAM 4K Module', 'CI+', 49.99),
+    ('Philips DVB-CI Module', 'DVB-CI', 34.50),
+    ('Sony CI+ Pro Module', 'CI+ Pro', 59.00),
+    ('Panasonic SmartCAM Module', 'SmartCAM', 44.95),
+    ('Technisat DVB-CI Adapter', 'DVB-CI', 29.99);

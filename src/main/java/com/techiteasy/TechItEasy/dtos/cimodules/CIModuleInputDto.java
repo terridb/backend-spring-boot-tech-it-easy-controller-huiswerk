@@ -1,4 +1,4 @@
-package com.techiteasy.TechItEasy.dtos;
+package com.techiteasy.TechItEasy.dtos.cimodules;
 
 import jakarta.validation.constraints.*;
 

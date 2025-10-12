@@ -1,4 +1,4 @@
-package com.techiteasy.TechItEasy.dtos;
+package com.techiteasy.TechItEasy.dtos.televisions;
 
 public class TelevisionSalesDto {
     public Long id;

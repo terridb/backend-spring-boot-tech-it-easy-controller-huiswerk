@@ -1,7 +1,7 @@
 //package com.techiteasy.TechItEasy.services;
 //
-//import com.techiteasy.TechItEasy.dtos.WallBracketDto;
-//import com.techiteasy.TechItEasy.dtos.WallBracketInputDto;
+//import com.techiteasy.TechItEasy.dtos.wallbrackets.WallBracketDto;
+//import com.techiteasy.TechItEasy.dtos.wallbrackets.WallBracketInputDto;
 //import com.techiteasy.TechItEasy.exceptions.RecordNotFoundException;
 //import com.techiteasy.TechItEasy.mappers.WallBracketMapper;
 //import com.techiteasy.TechItEasy.models.WallBracket;

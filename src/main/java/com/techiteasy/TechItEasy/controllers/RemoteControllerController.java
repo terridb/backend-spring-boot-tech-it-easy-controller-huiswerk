@@ -1,7 +1,7 @@
 package com.techiteasy.TechItEasy.controllers;
 
-import com.techiteasy.TechItEasy.dtos.RemoteControllerDto;
-import com.techiteasy.TechItEasy.dtos.RemoteControllerInputDto;
+import com.techiteasy.TechItEasy.dtos.remotecontrollers.RemoteControllerDto;
+import com.techiteasy.TechItEasy.dtos.remotecontrollers.RemoteControllerInputDto;
 import com.techiteasy.TechItEasy.services.RemoteControllerService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;

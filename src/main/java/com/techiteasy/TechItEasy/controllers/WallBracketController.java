@@ -1,7 +1,7 @@
 //package com.techiteasy.TechItEasy.controllers;
 //
-//import com.techiteasy.TechItEasy.dtos.WallBracketDto;
-//import com.techiteasy.TechItEasy.dtos.WallBracketInputDto;
+//import com.techiteasy.TechItEasy.dtos.wallbrackets.WallBracketDto;
+//import com.techiteasy.TechItEasy.dtos.wallbrackets.WallBracketInputDto;
 //import com.techiteasy.TechItEasy.services.WallBracketService;
 //import jakarta.validation.Valid;
 //import org.springframework.http.HttpStatus;

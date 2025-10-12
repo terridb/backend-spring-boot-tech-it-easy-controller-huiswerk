@@ -1,8 +1,8 @@
 package com.techiteasy.TechItEasy.mappers;
 
-import com.techiteasy.TechItEasy.dtos.TelevisionDto;
-import com.techiteasy.TechItEasy.dtos.TelevisionInputDto;
-import com.techiteasy.TechItEasy.dtos.TelevisionSalesDto;
+import com.techiteasy.TechItEasy.dtos.televisions.TelevisionDto;
+import com.techiteasy.TechItEasy.dtos.televisions.TelevisionInputDto;
+import com.techiteasy.TechItEasy.dtos.televisions.TelevisionSalesDto;
 import com.techiteasy.TechItEasy.models.Television;
 
 public class TelevisionMapper {
@@ -52,6 +52,10 @@ public class TelevisionMapper {
 
         if (television.getRemoteController() != null) {
             televisionDto.remoteController = RemoteControllerMapper.toDto(television.getRemoteController());
+        }
+
+        if (television.getCiModule() != null) {
+            televisionDto.ciModule = CIModuleMapper.toDto(television.getCiModule());
         }
 
         return televisionDto;

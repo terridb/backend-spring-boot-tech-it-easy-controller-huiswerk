@@ -1,7 +1,7 @@
-//package com.techiteasy.TechItEasy.repositories;
-//
-//import com.techiteasy.TechItEasy.models.CIModule;
-//import org.springframework.data.jpa.repository.JpaRepository;
-//
-//public interface CIModuleRepository extends JpaRepository<CIModule, Long> {
-//}
+package com.techiteasy.TechItEasy.repositories;
+
+import com.techiteasy.TechItEasy.models.CIModule;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface CIModuleRepository extends JpaRepository<CIModule, Long> {
+}

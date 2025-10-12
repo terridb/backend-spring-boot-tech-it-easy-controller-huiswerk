@@ -1,7 +1,7 @@
 package com.techiteasy.TechItEasy.mappers;
 
-import com.techiteasy.TechItEasy.dtos.RemoteControllerInputDto;
-import com.techiteasy.TechItEasy.dtos.RemoteControllerDto;
+import com.techiteasy.TechItEasy.dtos.remotecontrollers.RemoteControllerInputDto;
+import com.techiteasy.TechItEasy.dtos.remotecontrollers.RemoteControllerDto;
 import com.techiteasy.TechItEasy.models.RemoteController;
 
 public class RemoteControllerMapper {

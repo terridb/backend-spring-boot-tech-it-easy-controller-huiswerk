@@ -45,10 +45,10 @@ public class Television {
     @JoinColumn(name = "remote_controller_id")
     RemoteController remoteController;
 
-//    @ManyToOne
-//    @JoinColumn(name = "ci_module_id")
-//    CIModule ciModule;
-//
+    @ManyToOne
+    @JoinColumn(name = "ci_module_id")
+    CIModule ciModule;
+
 //    @ManyToMany
 //    @JoinTable(
 //            name = "television_wallbrackets",
@@ -217,14 +217,14 @@ public class Television {
         this.remoteController = remoteController;
     }
 
-//    public CIModule getCiModule() {
-//        return ciModule;
-//    }
-//
-//    public void setCiModule(CIModule ciModule) {
-//        this.ciModule = ciModule;
-//    }
-//
+    public CIModule getCiModule() {
+        return ciModule;
+    }
+
+    public void setCiModule(CIModule ciModule) {
+        this.ciModule = ciModule;
+    }
+
 //    public List<WallBracket> getWallBrackets() {
 //        return wallBrackets;
 //    }

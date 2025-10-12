@@ -1,21 +1,22 @@
 package com.techiteasy.TechItEasy.services;
 
-import com.techiteasy.TechItEasy.dtos.TelevisionDto;
-import com.techiteasy.TechItEasy.dtos.TelevisionInputDto;
-import com.techiteasy.TechItEasy.dtos.TelevisionPatchDto;
-import com.techiteasy.TechItEasy.dtos.TelevisionSalesDto;
+import com.techiteasy.TechItEasy.dtos.televisions.TelevisionDto;
+import com.techiteasy.TechItEasy.dtos.televisions.TelevisionInputDto;
+import com.techiteasy.TechItEasy.dtos.televisions.TelevisionPatchDto;
+import com.techiteasy.TechItEasy.dtos.televisions.TelevisionSalesDto;
 import com.techiteasy.TechItEasy.exceptions.InvalidInputException;
 import com.techiteasy.TechItEasy.exceptions.RecordNotFoundException;
 import com.techiteasy.TechItEasy.mappers.TelevisionMapper;
+import com.techiteasy.TechItEasy.models.CIModule;
 import com.techiteasy.TechItEasy.models.RemoteController;
 import com.techiteasy.TechItEasy.models.Television;
+import com.techiteasy.TechItEasy.repositories.CIModuleRepository;
 import com.techiteasy.TechItEasy.repositories.RemoteControllerRepository;
 import com.techiteasy.TechItEasy.repositories.TelevisionRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class TelevisionService {
@@ -24,10 +25,14 @@ public class TelevisionService {
 
     private final RemoteControllerRepository remoteControllerRepository;
 
+    private final CIModuleRepository ciModuleRepository;
+
     public TelevisionService(TelevisionRepository televisionRepository,
-                             RemoteControllerRepository remoteControllerRepository) {
+                             RemoteControllerRepository remoteControllerRepository,
+                             CIModuleRepository ciModuleRepository) {
         this.televisionRepository = televisionRepository;
         this.remoteControllerRepository = remoteControllerRepository;
+        this.ciModuleRepository = ciModuleRepository;
     }
 
     public TelevisionDto assignRemoteControllerToTelevision(Long televisionId, Long remoteControllerId) {
@@ -38,6 +43,20 @@ public class TelevisionService {
 
         television.setRemoteController(remoteController);
         remoteController.setTelevision(television);
+
+        Television savedTelevision = televisionRepository.save(television);
+
+        return TelevisionMapper.toDto(savedTelevision);
+    }
+
+    public TelevisionDto assignCIModuleToTelevision(Long televisionId, Long ciModuleId) {
+        Television television = televisionRepository.findById(televisionId)
+                .orElseThrow(() -> new RecordNotFoundException("Television with id " + televisionId + " not found"));
+        CIModule ciModule = ciModuleRepository.findById(ciModuleId)
+                .orElseThrow(() -> new RecordNotFoundException("CI-Module with id " + ciModuleId + " not found"));
+
+        television.setCiModule(ciModule);
+        ciModule.getTelevisions().add(television);
 
         Television savedTelevision = televisionRepository.save(television);
 
