@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "televisions")
@@ -49,13 +50,13 @@ public class Television {
     @JoinColumn(name = "ci_module_id")
     CIModule ciModule;
 
-//    @ManyToMany
-//    @JoinTable(
-//            name = "television_wallbrackets",
-//            joinColumns = @JoinColumn(name = "wall_bracket_id"),
-//            inverseJoinColumns = @JoinColumn(name = "television_id")
-//    )
-//    List<WallBracket> wallBrackets;
+    @ManyToMany
+    @JoinTable(
+            name = "television_wallbrackets",
+            joinColumns = @JoinColumn(name = "wallbracket_id"),
+            inverseJoinColumns = @JoinColumn(name = "television_id")
+    )
+    Set<WallBracket> wallBrackets;
 
     public Long getId() {
         return id;
@@ -225,11 +226,11 @@ public class Television {
         this.ciModule = ciModule;
     }
 
-//    public List<WallBracket> getWallBrackets() {
-//        return wallBrackets;
-//    }
-//
-//    public void setWallBrackets(List<WallBracket> wallBrackets) {
-//        this.wallBrackets = wallBrackets;
-//    }
+    public Set<WallBracket> getWallBrackets() {
+        return wallBrackets;
+    }
+
+    public void setWallBrackets(Set<WallBracket> wallBrackets) {
+        this.wallBrackets = wallBrackets;
+    }
 }

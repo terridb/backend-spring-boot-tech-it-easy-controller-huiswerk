@@ -7,6 +7,7 @@ import com.techiteasy.TechItEasy.dtos.televisions.TelevisionPatchDto;
 import com.techiteasy.TechItEasy.dtos.televisions.TelevisionSalesDto;
 import com.techiteasy.TechItEasy.services.TelevisionService;
 import jakarta.validation.Valid;
+import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -34,6 +35,13 @@ public class TelevisionController {
     public ResponseEntity<TelevisionDto> assignCIModuleToTelevision(@PathVariable Long id, @RequestBody IdInputDto input) {
 
         TelevisionDto televisionDto = service.assignCIModuleToTelevision(id, input.id);
+        return ResponseEntity.ok(televisionDto);
+    }
+
+    @PutMapping("/{id}/wallbracket")
+    public ResponseEntity<TelevisionDto> assignWallBracketToTelevision(@PathVariable Long id, @RequestBody IdInputDto input) {
+
+        TelevisionDto televisionDto = service.assignWallBracketToTelevision(id, input.id);
         return ResponseEntity.ok(televisionDto);
     }
 

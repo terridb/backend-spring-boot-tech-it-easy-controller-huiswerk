@@ -2,10 +2,13 @@ package com.techiteasy.TechItEasy.dtos.televisions;
 
 import com.techiteasy.TechItEasy.dtos.cimodules.CIModuleDto;
 import com.techiteasy.TechItEasy.dtos.remotecontrollers.RemoteControllerDto;
+import com.techiteasy.TechItEasy.dtos.wallbrackets.WallBracketDto;
 import com.techiteasy.TechItEasy.models.AvailableSize;
 import com.techiteasy.TechItEasy.models.RefreshRate;
 import com.techiteasy.TechItEasy.models.ScreenQuality;
 import com.techiteasy.TechItEasy.models.ScreenType;
+
+import java.util.Set;
 
 public class TelevisionDto {
     public Long id;
@@ -25,4 +28,5 @@ public class TelevisionDto {
     public Boolean ambiLight;
     public RemoteControllerDto remoteController;
     public CIModuleDto ciModule;
+    public Set<WallBracketDto> wallBrackets;
 }

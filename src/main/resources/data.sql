@@ -24,6 +24,26 @@ VALUES
     ('LG OLED evo C3', 'AAA', 'LG Magic Remote', 'LG', 59.99, 40),
     ('Philips Ambilight 43PUS8508', 'AAA', 'Philips Universal Remote', 'Philips', 39.99, 60);
 
+-- Cimodules
+INSERT INTO ci_modules (name, type, price)
+VALUES
+    ('Samsung CI+ 1.4 Module', 'CI+', 39.99),
+    ('LG CAM 4K Module', 'CI+', 49.99),
+    ('Philips DVB-CI Module', 'DVB-CI', 34.50),
+    ('Sony CI+ Pro Module', 'CI+ Pro', 59.00),
+    ('Panasonic SmartCAM Module', 'SmartCAM', 44.95),
+    ('Technisat DVB-CI Adapter', 'DVB-CI', 29.99);
+
+-- Wallbrackets
+INSERT INTO wall_brackets (size, adjustable, name, price)
+VALUES
+    ('32-43 inch', true,  'FlexiMount Slim Bracket',         39.99),
+    ('32-65 inch', false, 'FixedWall Mount Classic',         29.95),
+    ('40-75 inch', true,  'Tilt & Swivel Pro Bracket',       59.00),
+    ('55-85 inch', true,  'Full Motion Heavy Duty Mount',    89.50),
+    ('24-43 inch', false, 'Compact Flat Wall Bracket',       24.99),
+    ('32-75 inch', true,  'Universal SmartBracket Deluxe',   69.95);
+
 -- Televisions
 INSERT INTO televisions (type, brand, name, price, available_size, refresh_rate, screen_type, screen_quality,
                          smart_tv, wifi, voice_control, hdr, bluetooth, ambi_light,
@@ -43,13 +63,3 @@ VALUES
      'SIZE_43', 'HZ_60', 'LED', 'FULL_HD',
      true, true, false, true, true, true,
      25, 8, '2025-07-01', '2025-09-25');
-
--- Cimodules
-INSERT INTO ci_modules (name, type, price)
-VALUES
-    ('Samsung CI+ 1.4 Module', 'CI+', 39.99),
-    ('LG CAM 4K Module', 'CI+', 49.99),
-    ('Philips DVB-CI Module', 'DVB-CI', 34.50),
-    ('Sony CI+ Pro Module', 'CI+ Pro', 59.00),
-    ('Panasonic SmartCAM Module', 'SmartCAM', 44.95),
-    ('Technisat DVB-CI Adapter', 'DVB-CI', 29.99);

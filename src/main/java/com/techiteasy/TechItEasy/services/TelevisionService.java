@@ -10,9 +10,11 @@ import com.techiteasy.TechItEasy.mappers.TelevisionMapper;
 import com.techiteasy.TechItEasy.models.CIModule;
 import com.techiteasy.TechItEasy.models.RemoteController;
 import com.techiteasy.TechItEasy.models.Television;
+import com.techiteasy.TechItEasy.models.WallBracket;
 import com.techiteasy.TechItEasy.repositories.CIModuleRepository;
 import com.techiteasy.TechItEasy.repositories.RemoteControllerRepository;
 import com.techiteasy.TechItEasy.repositories.TelevisionRepository;
+import com.techiteasy.TechItEasy.repositories.WallBracketRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -27,12 +29,16 @@ public class TelevisionService {
 
     private final CIModuleRepository ciModuleRepository;
 
+    private final WallBracketRepository wallBracketRepository;
+
     public TelevisionService(TelevisionRepository televisionRepository,
                              RemoteControllerRepository remoteControllerRepository,
-                             CIModuleRepository ciModuleRepository) {
+                             CIModuleRepository ciModuleRepository,
+                             WallBracketRepository wallBracketRepository) {
         this.televisionRepository = televisionRepository;
         this.remoteControllerRepository = remoteControllerRepository;
         this.ciModuleRepository = ciModuleRepository;
+        this.wallBracketRepository = wallBracketRepository;
     }
 
     public TelevisionDto assignRemoteControllerToTelevision(Long televisionId, Long remoteControllerId) {
@@ -57,6 +63,20 @@ public class TelevisionService {
 
         television.setCiModule(ciModule);
         ciModule.getTelevisions().add(television);
+
+        Television savedTelevision = televisionRepository.save(television);
+
+        return TelevisionMapper.toDto(savedTelevision);
+    }
+
+    public TelevisionDto assignWallBracketToTelevision(Long televisionId, Long wallBracketId) {
+        Television television = televisionRepository.findById(televisionId)
+                .orElseThrow(() -> new RecordNotFoundException("Television with id " + televisionId + " not found"));
+        WallBracket wallBracket = wallBracketRepository.findById(wallBracketId)
+                .orElseThrow(() -> new RecordNotFoundException("Wall bracket with id " + wallBracketId + " not found"));
+
+        television.getWallBrackets().add(wallBracket);
+        wallBracket.getTelevisions().add(television);
 
         Television savedTelevision = televisionRepository.save(television);
 
