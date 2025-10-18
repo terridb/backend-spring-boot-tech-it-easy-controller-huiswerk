@@ -4,10 +4,10 @@ import com.techiteasy.TechItEasy.dtos.remotecontrollers.RemoteControllerDto;
 import com.techiteasy.TechItEasy.dtos.remotecontrollers.RemoteControllerInputDto;
 import com.techiteasy.TechItEasy.services.RemoteControllerService;
 import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -35,7 +35,9 @@ public class RemoteControllerController {
     public ResponseEntity<RemoteControllerDto> createRemoteController(@Valid @RequestBody RemoteControllerInputDto remoteControllerInputDto) {
         RemoteControllerDto remoteControllerDto = this.service.createRemoteController(remoteControllerInputDto);
 
-        return new ResponseEntity<>(remoteControllerDto, HttpStatus.CREATED);
+        URI uri = URI.create("/remote-controllers/" + remoteControllerDto.id);
+
+        return ResponseEntity.created(uri).body(remoteControllerDto);
     }
 
     @PutMapping("/{id}")

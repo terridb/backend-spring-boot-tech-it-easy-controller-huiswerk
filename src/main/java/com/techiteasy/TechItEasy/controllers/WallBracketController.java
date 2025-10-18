@@ -4,10 +4,10 @@ import com.techiteasy.TechItEasy.dtos.wallbrackets.WallBracketDto;
 import com.techiteasy.TechItEasy.dtos.wallbrackets.WallBracketInputDto;
 import com.techiteasy.TechItEasy.services.WallBracketService;
 import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -35,7 +35,9 @@ public class WallBracketController {
     public ResponseEntity<WallBracketDto> createWallBracket(@Valid @RequestBody WallBracketInputDto wallBracketInputDto) {
         WallBracketDto wallBracketDto = this.service.createWallBracket(wallBracketInputDto);
 
-        return new ResponseEntity<>(wallBracketDto, HttpStatus.CREATED);
+        URI uri = URI.create("/wall-brackets/" + wallBracketDto.id);
+
+        return ResponseEntity.created(uri).body(wallBracketDto);
     }
 
     @PutMapping("/{id}")

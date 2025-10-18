@@ -7,11 +7,10 @@ import com.techiteasy.TechItEasy.dtos.televisions.TelevisionPatchDto;
 import com.techiteasy.TechItEasy.dtos.televisions.TelevisionSalesDto;
 import com.techiteasy.TechItEasy.services.TelevisionService;
 import jakarta.validation.Valid;
-import org.apache.coyote.Response;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -25,9 +24,9 @@ public class TelevisionController {
     }
 
     @PutMapping("/{id}/remotecontroller")
-    public ResponseEntity<TelevisionDto> assignRemoteControllerToTelevision(@PathVariable Long id, @RequestBody IdInputDto input) {
+    public ResponseEntity<TelevisionDto> assignRemoteControllerToTelevision(@PathVariable Long id, @RequestBody IdInputDto remoteController) {
 
-        TelevisionDto televisionDto = service.assignRemoteControllerToTelevision(id, input.id);
+        TelevisionDto televisionDto = service.assignRemoteControllerToTelevision(id, remoteController.id);
         return ResponseEntity.ok(televisionDto);
     }
 
@@ -67,7 +66,9 @@ public class TelevisionController {
     public ResponseEntity<TelevisionDto> createTelevision(@Valid @RequestBody TelevisionInputDto televisionInputDto) {
         TelevisionDto televisionDto = this.service.createTelevision(televisionInputDto);
 
-        return new ResponseEntity<>(televisionDto, HttpStatus.CREATED);
+        URI uri = URI.create("/televisions/" + televisionDto.id);
+
+        return ResponseEntity.created(uri).body(televisionDto);
     }
 
     @PutMapping("/{id}")

@@ -5,7 +5,9 @@ import com.techiteasy.TechItEasy.dtos.cimodules.CIModuleInputDto;
 import com.techiteasy.TechItEasy.exceptions.RecordNotFoundException;
 import com.techiteasy.TechItEasy.mappers.CIModuleMapper;
 import com.techiteasy.TechItEasy.models.CIModule;
+import com.techiteasy.TechItEasy.models.Television;
 import com.techiteasy.TechItEasy.repositories.CIModuleRepository;
+import com.techiteasy.TechItEasy.repositories.TelevisionRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,9 +17,11 @@ import java.util.List;
 public class CIModuleService {
 
     private final CIModuleRepository ciModuleRepository;
+    private final TelevisionRepository televisionRepository;
 
-    public CIModuleService(CIModuleRepository ciModuleRepository) {
+    public CIModuleService(CIModuleRepository ciModuleRepository, TelevisionRepository televisionRepository) {
         this.ciModuleRepository = ciModuleRepository;
+        this.televisionRepository = televisionRepository;
     }
 
     public List<CIModuleDto> getAllCIModules() {
@@ -55,9 +59,17 @@ public class CIModuleService {
     }
 
     public void deleteCIModule(Long id) {
-        ciModuleRepository.findById(id)
+        CIModule ciModule = ciModuleRepository.findById(id)
                 .orElseThrow(() -> new RecordNotFoundException("CI-module with id " + id + " not found"));
 
-        ciModuleRepository.deleteById(id);
+        if (ciModule.getTelevisions() != null) {
+            for (Television television : ciModule.getTelevisions()) {
+                television.setCiModule(null);
+                televisionRepository.save(television);
+            }
+            ciModule.getTelevisions().clear();
+        }
+
+        ciModuleRepository.delete(ciModule);
     }
 }

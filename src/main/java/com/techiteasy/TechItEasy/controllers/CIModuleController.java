@@ -4,10 +4,10 @@ import com.techiteasy.TechItEasy.dtos.cimodules.CIModuleDto;
 import com.techiteasy.TechItEasy.dtos.cimodules.CIModuleInputDto;
 import com.techiteasy.TechItEasy.services.CIModuleService;
 import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -35,7 +35,9 @@ public class CIModuleController {
     public ResponseEntity<CIModuleDto> createCIModule(@Valid @RequestBody CIModuleInputDto ciModuleInputDto) {
         CIModuleDto ciModuleDto = this.service.createCIModule(ciModuleInputDto);
 
-        return new ResponseEntity<>(ciModuleDto, HttpStatus.CREATED);
+        URI uri = URI.create("/ci-modules/" + ciModuleDto.id);
+
+        return ResponseEntity.created(uri).body(ciModuleDto);
     }
 
     @PutMapping("/{id}")

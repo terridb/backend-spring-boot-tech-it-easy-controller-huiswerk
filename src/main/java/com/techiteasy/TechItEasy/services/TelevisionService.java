@@ -17,6 +17,7 @@ import com.techiteasy.TechItEasy.repositories.TelevisionRepository;
 import com.techiteasy.TechItEasy.repositories.WallBracketRepository;
 import org.springframework.stereotype.Service;
 
+import java.rmi.Remote;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -129,10 +130,32 @@ public class TelevisionService {
     }
 
     public void deleteTelevision(Long id) {
-        televisionRepository.findById(id)
+        Television television = televisionRepository.findById(id)
                 .orElseThrow(() -> new RecordNotFoundException("Television with id " + id + " not found"));
 
-        televisionRepository.deleteById(id);
+        if (television.getRemoteController() != null) {
+            RemoteController remoteController = television.getRemoteController();
+            remoteController.setTelevision(null);
+            television.setRemoteController(null);
+            remoteControllerRepository.save(remoteController);
+        }
+
+        if (television.getCiModule() != null) {
+            CIModule ciModule = television.getCiModule();
+            ciModule.getTelevisions().remove(television);
+            television.setCiModule(null);
+            ciModuleRepository.save(ciModule);
+        }
+
+        if (television.getWallBrackets() != null) {
+            for (WallBracket wallBracket : television.getWallBrackets()) {
+                wallBracket.getTelevisions().remove(television);
+            }
+            television.getWallBrackets().clear();
+        }
+
+        televisionRepository.save(television);
+        televisionRepository.delete(television);
     }
 
     public TelevisionDto patchTelevision(Long id, TelevisionPatchDto televisionPatchDto) {

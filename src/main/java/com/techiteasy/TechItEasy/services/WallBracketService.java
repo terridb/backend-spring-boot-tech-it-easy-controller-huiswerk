@@ -4,7 +4,9 @@ import com.techiteasy.TechItEasy.dtos.wallbrackets.WallBracketDto;
 import com.techiteasy.TechItEasy.dtos.wallbrackets.WallBracketInputDto;
 import com.techiteasy.TechItEasy.exceptions.RecordNotFoundException;
 import com.techiteasy.TechItEasy.mappers.WallBracketMapper;
+import com.techiteasy.TechItEasy.models.Television;
 import com.techiteasy.TechItEasy.models.WallBracket;
+import com.techiteasy.TechItEasy.repositories.TelevisionRepository;
 import com.techiteasy.TechItEasy.repositories.WallBracketRepository;
 import org.springframework.stereotype.Service;
 
@@ -15,9 +17,11 @@ import java.util.List;
 public class WallBracketService {
 
     private final WallBracketRepository wallBracketRepository;
+    private final TelevisionRepository televisionRepository;
 
-    public WallBracketService(WallBracketRepository wallBracketRepository) {
+    public WallBracketService(WallBracketRepository wallBracketRepository, TelevisionRepository televisionRepository) {
         this.wallBracketRepository = wallBracketRepository;
+        this.televisionRepository = televisionRepository;
     }
 
     public List<WallBracketDto> getAllWallBrackets() {
@@ -55,9 +59,17 @@ public class WallBracketService {
     }
 
     public void deleteWallBracket(Long id) {
-        wallBracketRepository.findById(id)
+        WallBracket wallBracket = wallBracketRepository.findById(id)
                 .orElseThrow(() -> new RecordNotFoundException("Wall bracket with id " + id + " not found"));
 
-        wallBracketRepository.deleteById(id);
+        if (wallBracket.getTelevisions() != null) {
+            for (Television television : wallBracket.getTelevisions()) {
+                television.getWallBrackets().remove(wallBracket);
+                televisionRepository.save(television);
+            }
+            wallBracket.getTelevisions().clear();
+        }
+
+        wallBracketRepository.delete(wallBracket);
     }
 }
