@@ -44,3 +44,14 @@ VALUES
      'SIZE_43', 'HZ_60', 'LED', 'FULL_HD',
      true, true, false, true, true, true,
      25, 8, '2025-07-01', '2025-09-25');
+
+INSERT INTO users (username, password, enabled, email, apikey)
+VALUES
+    ('admin', '$2a$10$j8SJQXFuaqz7/vQPGqET7O79NKChgBCFa2AOjvLdnzdKHNH7NWYzC', true, 'admin@test.nl', 'ADMINKEY123'),
+    ('user',  '$2a$10$KX.LJO7KcolvjFBiBmnodOFsu9nAmXHfnB44oBvdMr3DOXzIKs0Ay', true, 'user@test.nl', 'USERKEY456');
+
+INSERT INTO roles (username, role)
+VALUES
+    ('admin', 'ROLE_ADMIN'),
+    ('admin', 'ROLE_USER'),
+    ('user',  'ROLE_USER');
