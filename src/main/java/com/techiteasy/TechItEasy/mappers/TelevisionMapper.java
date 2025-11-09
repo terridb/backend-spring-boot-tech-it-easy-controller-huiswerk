@@ -1,9 +1,14 @@
 package com.techiteasy.TechItEasy.mappers;
 
-import com.techiteasy.TechItEasy.dtos.TelevisionDto;
-import com.techiteasy.TechItEasy.dtos.TelevisionInputDto;
-import com.techiteasy.TechItEasy.dtos.TelevisionSalesDto;
+import com.techiteasy.TechItEasy.dtos.televisions.TelevisionDto;
+import com.techiteasy.TechItEasy.dtos.televisions.TelevisionInputDto;
+import com.techiteasy.TechItEasy.dtos.televisions.TelevisionSalesDto;
+import com.techiteasy.TechItEasy.dtos.wallbrackets.WallBracketDto;
 import com.techiteasy.TechItEasy.models.Television;
+import com.techiteasy.TechItEasy.models.WallBracket;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public class TelevisionMapper {
 
@@ -49,6 +54,25 @@ public class TelevisionMapper {
         televisionDto.hdr = television.getHdr();
         televisionDto.bluetooth = television.getBluetooth();
         televisionDto.ambiLight = television.getAmbiLight();
+
+        if (television.getRemoteController() != null) {
+            televisionDto.remoteController = RemoteControllerMapper.toDto(television.getRemoteController());
+        }
+
+        if (television.getCiModule() != null) {
+            televisionDto.ciModule = CIModuleMapper.toDto(television.getCiModule());
+        }
+
+        if (television.getWallBrackets() != null) {
+            Set<WallBracketDto> wallBracketDtos = new HashSet<>();
+
+            for (WallBracket wallBracket : television.getWallBrackets()) {
+                WallBracketDto dto = WallBracketMapper.toDto(wallBracket);
+                wallBracketDtos.add(dto);
+            }
+
+            televisionDto.wallBrackets = wallBracketDtos;
+        }
 
         return televisionDto;
     }

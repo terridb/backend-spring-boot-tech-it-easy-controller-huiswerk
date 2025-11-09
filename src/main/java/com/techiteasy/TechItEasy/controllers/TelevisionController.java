@@ -1,15 +1,16 @@
 package com.techiteasy.TechItEasy.controllers;
 
-import com.techiteasy.TechItEasy.dtos.TelevisionDto;
-import com.techiteasy.TechItEasy.dtos.TelevisionInputDto;
-import com.techiteasy.TechItEasy.dtos.TelevisionPatchDto;
-import com.techiteasy.TechItEasy.dtos.TelevisionSalesDto;
+import com.techiteasy.TechItEasy.dtos.*;
+import com.techiteasy.TechItEasy.dtos.televisions.TelevisionDto;
+import com.techiteasy.TechItEasy.dtos.televisions.TelevisionInputDto;
+import com.techiteasy.TechItEasy.dtos.televisions.TelevisionPatchDto;
+import com.techiteasy.TechItEasy.dtos.televisions.TelevisionSalesDto;
 import com.techiteasy.TechItEasy.services.TelevisionService;
 import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -20,6 +21,27 @@ public class TelevisionController {
 
     public TelevisionController(TelevisionService service) {
         this.service = service;
+    }
+
+    @PutMapping("/{id}/remotecontroller")
+    public ResponseEntity<TelevisionDto> assignRemoteControllerToTelevision(@PathVariable Long id, @RequestBody IdInputDto remoteController) {
+
+        TelevisionDto televisionDto = service.assignRemoteControllerToTelevision(id, remoteController.id);
+        return ResponseEntity.ok(televisionDto);
+    }
+
+    @PutMapping("/{id}/cimodule")
+    public ResponseEntity<TelevisionDto> assignCIModuleToTelevision(@PathVariable Long id, @RequestBody IdInputDto input) {
+
+        TelevisionDto televisionDto = service.assignCIModuleToTelevision(id, input.id);
+        return ResponseEntity.ok(televisionDto);
+    }
+
+    @PutMapping("/{id}/wallbracket")
+    public ResponseEntity<TelevisionDto> assignWallBracketToTelevision(@PathVariable Long id, @RequestBody IdInputDto input) {
+
+        TelevisionDto televisionDto = service.assignWallBracketToTelevision(id, input.id);
+        return ResponseEntity.ok(televisionDto);
     }
 
     @GetMapping
@@ -44,7 +66,9 @@ public class TelevisionController {
     public ResponseEntity<TelevisionDto> createTelevision(@Valid @RequestBody TelevisionInputDto televisionInputDto) {
         TelevisionDto televisionDto = this.service.createTelevision(televisionInputDto);
 
-        return new ResponseEntity<>(televisionDto, HttpStatus.CREATED);
+        URI uri = URI.create("/televisions/" + televisionDto.id);
+
+        return ResponseEntity.created(uri).body(televisionDto);
     }
 
     @PutMapping("/{id}")
