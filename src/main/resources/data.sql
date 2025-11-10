@@ -44,3 +44,19 @@ VALUES
      'SIZE_43', 'HZ_60', 'LED', 'FULL_HD',
      true, true, false, true, true, true,
      25, 8, '2025-07-01', '2025-09-25');
+
+-- Users
+-- Wachtwoord voor elke user is "test"
+INSERT INTO users (username, password, enabled, email, apikey)
+VALUES
+    ('pietje', '$2a$10$gKNCIzK5xF8Z4QaPz2fzsuvmLfXCyf2fEhABB9U74jcjZupBxdERi', true, 'pietje@test.nl', 'TEST'),
+    ('pino',  '$2a$10$ELO43UfEvhwH1O6RFhIzPesDSC7S7NBzqxU1pXoDNZQqETOKVNj/m', true, 'pino@test.nl', 'TEST'),
+    ('klaas',  '$2a$10$HXqjf509R19m./qKzQKcY.A2ILsSOrndQRy0kMeH.41PHmcpgvAaa', true, 'klaas@test.nl', 'TEST');
+
+-- Roles
+INSERT INTO roles (username, role)
+VALUES
+    ('pietje', 'ROLE_ADMIN'),
+    ('pietje', 'ROLE_USER'),
+    ('pino', 'ROLE_USER'),
+    ('klaas',  'ROLE_USER');
