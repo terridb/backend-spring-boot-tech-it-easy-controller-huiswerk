@@ -4,7 +4,10 @@ import com.techiteasy.TechItEasy.dtos.RoleInputDto;
 import com.techiteasy.TechItEasy.dtos.UserDto;
 import com.techiteasy.TechItEasy.exceptions.BadRequestException;
 import com.techiteasy.TechItEasy.services.UserService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -31,15 +34,25 @@ public class UserController {
 
     @GetMapping(value = "/{username}")
     public ResponseEntity<UserDto> getUser(@PathVariable("username") String username) {
+//       Bonusopdracht
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String loggedInUsername = authentication.getName();
+
+        boolean isAdmin = authentication.getAuthorities().stream()
+                .anyMatch(auth -> auth.getAuthority().equals("ROLE_ADMIN"));
+
+        if (!isAdmin && !loggedInUsername.equals(username)) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
 
         UserDto optionalUser = userService.getUser(username);
 
         return ResponseEntity.ok().body(optionalUser);
-
     }
 
     @PostMapping
-    public ResponseEntity<UserDto> createKlant(@RequestBody UserDto dto) {;
+    public ResponseEntity<UserDto> createKlant(@RequestBody UserDto dto) {
+        ;
 
         String newUsername = userService.createUser(dto);
         userService.addRole(newUsername, "ROLE_USER");
@@ -75,8 +88,7 @@ public class UserController {
             String roleName = roleInputDto.role;
             userService.addRole(username, roleName);
             return ResponseEntity.noContent().build();
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             throw new BadRequestException();
         }
     }

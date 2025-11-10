@@ -39,12 +39,16 @@ public class SpringSecurityConfig {
                 .authorizeHttpRequests(auth ->
                                 auth
                                         .requestMatchers("/authenticate").permitAll()
-//                                        Users
                                         .requestMatchers(HttpMethod.POST, "/users").hasRole("ADMIN")
                                         .requestMatchers(HttpMethod.GET, "/users").hasRole("ADMIN")
+
+//                                        Bonusopdracht
+                                        .requestMatchers("/users/*/roles/**").hasRole("ADMIN")
+                                        .requestMatchers(HttpMethod.GET, "/users/**").hasAnyRole("USER", "ADMIN")
+
                                         .requestMatchers(HttpMethod.POST, "/users/**").hasRole("ADMIN")
                                         .requestMatchers(HttpMethod.DELETE, "/users/**").hasRole("ADMIN")
-//                                        Products
+                                        .requestMatchers(HttpMethod.PUT, "/users/**").hasRole("ADMIN")
                                         .requestMatchers(HttpMethod.GET,
                                                 "/televisions/**",
                                                 "/ci-modules/**",
@@ -70,7 +74,6 @@ public class SpringSecurityConfig {
                                                 "/remote-controllers/**"
                                         ).hasRole("ADMIN")
                                         .requestMatchers(HttpMethod.PATCH, "/televisions/**").hasRole("ADMIN")
-//                                        Auth
                                         .requestMatchers("/authenticated").authenticated()
                                         .anyRequest().denyAll()
                 )

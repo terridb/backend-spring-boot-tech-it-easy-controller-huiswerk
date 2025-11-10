@@ -45,13 +45,18 @@ VALUES
      true, true, false, true, true, true,
      25, 8, '2025-07-01', '2025-09-25');
 
+-- Users
+-- Wachtwoord voor elke user is "test"
 INSERT INTO users (username, password, enabled, email, apikey)
 VALUES
-    ('admin', '$2a$10$j8SJQXFuaqz7/vQPGqET7O79NKChgBCFa2AOjvLdnzdKHNH7NWYzC', true, 'admin@test.nl', 'ADMINKEY123'),
-    ('user',  '$2a$10$KX.LJO7KcolvjFBiBmnodOFsu9nAmXHfnB44oBvdMr3DOXzIKs0Ay', true, 'user@test.nl', 'USERKEY456');
+    ('pietje', '$2a$10$gKNCIzK5xF8Z4QaPz2fzsuvmLfXCyf2fEhABB9U74jcjZupBxdERi', true, 'pietje@test.nl', 'TEST'),
+    ('pino',  '$2a$10$ELO43UfEvhwH1O6RFhIzPesDSC7S7NBzqxU1pXoDNZQqETOKVNj/m', true, 'pino@test.nl', 'TEST'),
+    ('klaas',  '$2a$10$HXqjf509R19m./qKzQKcY.A2ILsSOrndQRy0kMeH.41PHmcpgvAaa', true, 'klaas@test.nl', 'TEST');
 
+-- Roles
 INSERT INTO roles (username, role)
 VALUES
-    ('admin', 'ROLE_ADMIN'),
-    ('admin', 'ROLE_USER'),
-    ('user',  'ROLE_USER');
+    ('pietje', 'ROLE_ADMIN'),
+    ('pietje', 'ROLE_USER'),
+    ('pino', 'ROLE_USER'),
+    ('klaas',  'ROLE_USER');
